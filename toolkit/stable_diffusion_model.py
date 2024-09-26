@@ -638,6 +638,13 @@ class StableDiffusion:
             )
             pipe.text_encoder_2 = text_encoder_2
             pipe.transformer = transformer
+            
+            print("applying flux training optimizations")
+            if self.model_config.use_torch_compile:
+                pipe.transformer.to(memory_format=torch.channels_last)
+                pipe.transformer = torch.compile(
+                    pipe.transformer, mode="max-autotune", fullgraph=True
+                )
 
             print("preparing")
 

@@ -414,6 +414,9 @@ class ModelConfig:
         self.use_text_encoder_2: bool = kwargs.get('use_text_encoder_2', True)
 
         self.experimental_xl: bool = kwargs.get('experimental_xl', False)
+        
+        # flux optimizations
+        self.use_torch_compile = kwargs.get('use_torch_compile', True)
 
         if self.name_or_path is None:
             raise ValueError('name_or_path must be specified')
